@@ -1,10 +1,10 @@
 package search;
 
 import java.util.ArrayList;
-import java.util.Collection;
+// import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
+// import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -76,6 +76,7 @@ public class SearchEngine {
     //Query Functions
     //public function needed , seach
     //seach-> get >normalize > tokenize > order > score >rank > return 
+    
     public List<Integer> search(String query, int k){
         String NormalQuery=TextProcessor.normalizer(query);
         List<String> QueryTokens=TextProcessor.tokenize(NormalQuery);
@@ -87,6 +88,11 @@ public class SearchEngine {
         List<Integer> Results= ScoreBM25(Candidates,OrderedQueryTokens,k);
 
         return Results;
+    }
+
+    //overload seach to have a default k value
+    public List<Integer> seach(String query){
+        return search(query,20);
     }
 
     //private functions: ordering,get candidates , scoring , ranking

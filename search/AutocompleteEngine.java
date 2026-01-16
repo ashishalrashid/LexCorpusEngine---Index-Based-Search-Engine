@@ -40,14 +40,16 @@ public class AutocompleteEngine {
     private void updateTopK(TrieNode node, String word) {
 
         List<String> topK = node.topK;
+        Set<String> topKSet=node.topKSet;
 
-        if (topK.contains(word)) {
+        if (topKSet.contains(word)) {
             sortTopK(topK);
             return;
         }
 
         if (topK.size() < K) {
             topK.add(word);
+            topKSet.add(word);
             sortTopK(topK);
             return;
         }
@@ -56,7 +58,9 @@ public class AutocompleteEngine {
 
         if (wordFreq.get(word) > wordFreq.get(weakest)) {
             topK.remove(topK.size() - 1);
+            topKSet.remove(weakest);
             topK.add(word);
+            topKSet.add(word);
             sortTopK(topK);
         }
     }

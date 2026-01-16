@@ -8,5 +8,7 @@ class TrieNode {
     boolean isWord = false;
 
     List<String> topK = new ArrayList<>();
+
+    Set<String> topKSet = new HashSet<>();
 }
 
