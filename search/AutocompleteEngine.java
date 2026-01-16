@@ -1,25 +1,30 @@
 package search;
-
 import java.util.*;
 
-public class AutocompleteEngine{
+public class AutocompleteEngine {
 
-    private final TrieNode root = new TrieNode();
     private static final int K = 5;
 
+    private final TrieNode root = new TrieNode();
+    private final Map<String, Integer> wordFreq = new HashMap<>();
+
     public void insert(String word) {
+
+        // update global frequency
+        wordFreq.put(word, wordFreq.getOrDefault(word, 0) + 1);
+
         TrieNode node = root;
 
         for (char c : word.toCharArray()) {
             node = node.children.computeIfAbsent(c, k -> new TrieNode());
-            node.updateTopK(word, K);
+            updateTopK(node, word);
         }
 
         node.isWord = true;
-        node.frequency++;
     }
 
     public List<String> suggest(String prefix) {
+
         TrieNode node = root;
 
         for (char c : prefix.toCharArray()) {
@@ -28,5 +33,35 @@ public class AutocompleteEngine{
         }
 
         return node.topK;
+    }
+
+    /* ---------- helpers ---------- */
+
+    private void updateTopK(TrieNode node, String word) {
+
+        List<String> topK = node.topK;
+
+        if (topK.contains(word)) {
+            sortTopK(topK);
+            return;
+        }
+
+        if (topK.size() < K) {
+            topK.add(word);
+            sortTopK(topK);
+            return;
+        }
+
+        String weakest = topK.get(topK.size() - 1);
+
+        if (wordFreq.get(word) > wordFreq.get(weakest)) {
+            topK.remove(topK.size() - 1);
+            topK.add(word);
+            sortTopK(topK);
+        }
+    }
+    // overide the sort function be in line with freq map
+    private void sortTopK(List<String> list) {
+        list.sort((a, b) -> wordFreq.get(b) - wordFreq.get(a));
     }
 }

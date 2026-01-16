@@ -76,7 +76,18 @@ public class SearchEngine {
     //Query Functions
     //public function needed , seach
     //seach-> get >normalize > tokenize > order > score >rank > return 
+    public List<Integer> search(String query, int k){
+        String NormalQuery=TextProcessor.normalizer(query);
+        List<String> QueryTokens=TextProcessor.tokenize(NormalQuery);
 
+        List<String> OrderedQueryTokens= OrderTokens(QueryTokens);
+
+        Set<Integer> Candidates=GetCandidates(OrderedQueryTokens);
+
+        List<Integer> Results= ScoreBM25(Candidates,OrderedQueryTokens,k);
+
+        return Results;
+    }
 
     //private functions: ordering,get candidates , scoring , ranking
     
@@ -91,8 +102,9 @@ public class SearchEngine {
             }
         Ordered.sort(Comparator.comparing(t->ReverseIndex.get(t).size()));
 
-        return Ordered;
+        
         }
+        return Ordered;
     }
 
     //generate candidate list
@@ -114,9 +126,8 @@ public class SearchEngine {
             if (candiates.isEmpty()){
                 break;
             }
-
-        return candiates ==null? Set.of() : candiates;
             }
+            return candiates ==null? Set.of() : candiates;
         }
 
     //helper function to get doc length

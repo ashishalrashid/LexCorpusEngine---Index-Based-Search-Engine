@@ -21,7 +21,7 @@ public class UmbrellaClass {
         }
     }
 
-    // exposed APIs
+    // public APIs
     public List<String> autocomplete(String prefix) {
         return autocompleteEngine.suggest(prefix);
     }
