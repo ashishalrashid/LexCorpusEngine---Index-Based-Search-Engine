@@ -21,9 +21,18 @@ public class UmbrellaClass {
         }
     }
 
-    // public APIs
     public List<String> autocomplete(String prefix) {
         return autocompleteEngine.suggest(prefix);
+    }
+
+    public void DeleteDocument(int DocId){
+        Map<String, Integer> DocTokens = searchEngine.getSubForwardIndex(DocId);
+
+        if (DocTokens==null) return;
+
+        searchEngine.deleteDoc(DocId);
+        autocompleteEngine.decrementFreq(DocTokens);
+        
     }
 
 }

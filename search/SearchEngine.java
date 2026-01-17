@@ -216,6 +216,11 @@ public class SearchEngine {
             Collections.reverse(result);
             return result;
         }
-}
+
+    //getter functions:
+    public Map<String,Integer> getSubForwardIndex(int docId){
+        return ForwardIndex.get(docId);
+    }
+    }
 
 
