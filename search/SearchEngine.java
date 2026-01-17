@@ -4,6 +4,7 @@ import java.util.ArrayList;
 // import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 // import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,34 @@ public class SearchEngine {
         AvgDocLength=TotalTokens/(double) ForwardIndex.size();
     }
 
-    //token and doc id are given to construct the forward and reverse index: 
+    //deletion fucntion:
+    public void deleteDoc(int docId) {
+    Map<String, Integer> singleDoc = ForwardIndex.get(docId);
+   
+    if (singleDoc == null) return;
+
+    for (Map.Entry<String, Integer> entry : singleDoc.entrySet()) {
+
+        String token = entry.getKey();
+        int freq = entry.getValue();
+
+        Map<Integer, Integer> posting = ReverseIndex.get(token);
+        if (posting == null) continue;
+
+        posting.remove(docId);
+
+        if (posting.isEmpty()) {
+            ReverseIndex.remove(token);
+        }
+
+        TotalTokens -= freq;
+    }
+
+    ForwardIndex.remove(docId);
+
+    AvgDocLength = ForwardIndex.isEmpty()? 0.0: TotalTokens / (double) ForwardIndex.size();
+}
+
 
     //Query Functions
     //public function needed , seach
