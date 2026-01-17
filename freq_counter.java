@@ -1,4 +1,4 @@
-package search;
+
 import java.util.HashMap;
 public class freq_counter {
     public static HashMap<Character,Integer> f_count(String s){

@@ -1,4 +1,4 @@
-package search;
+package engine.autocomplete;
 import java.util.*;
 
 class TrieNode {

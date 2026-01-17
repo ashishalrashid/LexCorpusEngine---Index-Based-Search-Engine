@@ -1,4 +1,4 @@
-package search;
+package engine.search;
 
 import java.util.ArrayList;
 // import java.util.Collection;
@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
+
+import engine.util.TextProcessor;
+
 import java.util.Collections;
 
 public class SearchEngine {

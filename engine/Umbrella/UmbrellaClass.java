@@ -1,6 +1,10 @@
-package search;
+package engine.Umbrella;
 
 import java.util.*;
+
+import engine.autocomplete.AutocompleteEngine;
+import engine.search.SearchEngine;
+import engine.util.TextProcessor;
 
 public class UmbrellaClass {
 
