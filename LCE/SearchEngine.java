@@ -140,11 +140,6 @@ class SearchEngine {
         return Results;
     }
 
-    //overload seach to have a default k value
-    List<Integer> seach(String query){
-        return search(query,20);
-    }
-
     //private functions: ordering,get candidates , scoring , ranking
     
     //filtering and ordering , ordering happens after tokenization , so i think this is the correct way

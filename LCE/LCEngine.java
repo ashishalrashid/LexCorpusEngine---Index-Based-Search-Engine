@@ -31,6 +31,15 @@ public class LCEngine {
         }
     }
 
+    public List<Integer> search(String Query, int k){
+        //k is the number of results to return , overload with 10 for default value later
+        return searchEngine.search(Query,k);
+    }
+
+    public List<Integer> search(String Query){
+        return search(Query,20);
+    }
+
     public List<String> autocomplete(String prefix) {
         return autocompleteEngine.suggest(prefix);
     }
@@ -45,4 +54,8 @@ public class LCEngine {
         
     }
 
+    public void rebuildAutocompleteTrie(){
+        autocompleteEngine.rebuild();
+        return;
+    }
 }
