@@ -1,4 +1,4 @@
-package engine.config;
+package LCE;
 
 public final class SearchConfig {
 

@@ -1,6 +1,4 @@
-package engine.cache;
-import engine.config.SearchConfig;
-
+package LCE;
 
 public class CacheFactory {
 

@@ -1,4 +1,4 @@
-package engine.search;
+package LCE;
 
 import java.util.ArrayList;
 // import java.util.Collection;
@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
-import engine.cache.*;
-import engine.config.SearchConfig;
-import engine.util.TextProcessor;
+
+import LCE.util.TextProcessor;
 
 import java.util.Collections;
 

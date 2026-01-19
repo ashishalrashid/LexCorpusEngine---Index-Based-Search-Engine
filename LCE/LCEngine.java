@@ -1,11 +1,8 @@
-package engine;
+package LCE;
 
 import java.util.*;
 
-import engine.autocomplete.AutocompleteEngine;
-import engine.search.SearchEngine;
-import engine.util.TextProcessor;
-import engine.config.SearchConfig;
+import LCE.util.TextProcessor;
 
 public class LCEngine {
 

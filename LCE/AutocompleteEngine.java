@@ -1,7 +1,5 @@
-package engine.autocomplete;
+package LCE;
 import java.util.*;
-
-import engine.config.SearchConfig;
 
 class AutocompleteEngine {
 

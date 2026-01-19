@@ -1,4 +1,4 @@
-package engine.autocomplete;
+package LCE;
 import java.util.*;
 
 class TrieNode {
