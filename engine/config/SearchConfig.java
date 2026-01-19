@@ -46,7 +46,7 @@ public final class SearchConfig {
 
     public static final class Builder {
 
-        private CachePolicy cachePolicy = CachePolicy.LRU; // default
+        private CachePolicy cachePolicy = CachePolicy.LRU; 
         private int cacheSize = 1000;
         private int autocompleteTopK = 5;
         private double bm25K1 = 1.5;

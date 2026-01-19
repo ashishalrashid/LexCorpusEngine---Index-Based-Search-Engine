@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
-
+import engine.cache.*;
+import engine.config.SearchConfig;
 import engine.util.TextProcessor;
 
 import java.util.Collections;
@@ -22,9 +23,12 @@ public class SearchEngine {
     private int TotalTokens;
     private double AvgDocLength;
 
-    public SearchEngine(){
+    private final Cache<String,List<Integer>> searchCache;
+
+    public SearchEngine(SearchConfig config){
         ForwardIndex= new HashMap<>();
         ReverseIndex=new HashMap<>();
+        this.searchCache =CacheFactory.create(config);
     }
     
     //Ingester function - make a delete function as well(to delete ingestions)
@@ -109,6 +113,16 @@ public class SearchEngine {
     
     public List<Integer> search(String query, int k){
         String NormalQuery=TextProcessor.normalizer(query);
+        
+        //lookup cache
+        String cacheKey=NormalQuery +"|"+k;
+        List<Integer> cached =searchCache.get(cacheKey);
+        if (cached !=null){
+            return cached;
+        }
+
+        //excute the search
+
         List<String> QueryTokens=TextProcessor.tokenize(NormalQuery);
 
         List<String> OrderedQueryTokens= OrderTokens(QueryTokens);
@@ -117,6 +131,10 @@ public class SearchEngine {
 
         List<Integer> Results= ScoreBM25(Candidates,OrderedQueryTokens,k);
 
+
+        //cache the results
+        searchCache.put(cacheKey,Results);
+        
         return Results;
     }
 
