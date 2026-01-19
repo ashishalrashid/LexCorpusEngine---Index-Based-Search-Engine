@@ -5,12 +5,23 @@ import java.util.*;
 import engine.autocomplete.AutocompleteEngine;
 import engine.search.SearchEngine;
 import engine.util.TextProcessor;
+import engine.config.SearchConfig;
 
 public class UmbrellaClass {
 
-    private final SearchEngine searchEngine = new SearchEngine();
-    private final AutocompleteEngine autocompleteEngine = new AutocompleteEngine();
+    private final SearchEngine searchEngine;
+    private final AutocompleteEngine autocompleteEngine ;
+    private final SearchConfig config;
 
+    //constructor
+    public UmbrellaClass(SearchConfig config){
+        this.config =config;
+        this.searchEngine =new SearchEngine(config);
+        this.autocompleteEngine  =new AutocompleteEngine(config);
+
+    }
+     
+    
     public void ingest(int docId, String text) {
 
         String normalized = TextProcessor.normalizer(text);

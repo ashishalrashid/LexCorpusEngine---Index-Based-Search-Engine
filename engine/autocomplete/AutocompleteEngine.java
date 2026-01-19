@@ -1,17 +1,23 @@
 package engine.autocomplete;
 import java.util.*;
 
+import engine.config.SearchConfig;
+
 public class AutocompleteEngine {
 
-    private static final int K = 5;
+    private final int K;
 
     private TrieNode root = new TrieNode();
     private final Map<String, Integer> wordFreq = new HashMap<>();
+    
     //deletions and rebuild parameter
     private int TokensDeletedSinceRebuild=0;
     private static final int Rebuild_Threshold=50_000; 
 
+    public AutocompleteEngine(SearchConfig config){
+        this.K =config.getAutocompleteTopK();
 
+    }
 
     public void insert(String word) {
 

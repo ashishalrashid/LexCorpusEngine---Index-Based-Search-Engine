@@ -25,10 +25,16 @@ public class SearchEngine {
 
     private final Cache<String,List<Integer>> searchCache;
 
+    //bm25 params
+    private final double K1;
+    private final double B;
+
     public SearchEngine(SearchConfig config){
         ForwardIndex= new HashMap<>();
         ReverseIndex=new HashMap<>();
         this.searchCache =CacheFactory.create(config);
+        this.K1=config.getBm25K1();
+        this.B=config.getBm25B();
     }
     
     //Ingester function - make a delete function as well(to delete ingestions)
@@ -195,8 +201,6 @@ public class SearchEngine {
 
     //scoring fucntion to score and create heap 
     private List<Integer> ScoreBM25(Set<Integer> Candidates,  List<String> QueryTokens, int k){
-        final double K1=1.5;
-        final double B=0.75;
 
         PriorityQueue<Map.Entry<Integer,Double>> heap = new PriorityQueue<>(Comparator.comparingDouble(Map.Entry::getValue));
 
