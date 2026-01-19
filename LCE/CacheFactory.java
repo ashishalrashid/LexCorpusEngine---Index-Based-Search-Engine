@@ -1,8 +1,8 @@
 package LCE;
 
-public class CacheFactory {
+class CacheFactory {
 
-    public static <K, V> Cache<K, V> create(SearchConfig config) {
+    static <K, V> Cache<K, V> create(SearchConfig config) {
 
         switch (config.getCachePolicy()) {
             case LRU:

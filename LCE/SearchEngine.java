@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
-
-import LCE.util.TextProcessor;
-
 import java.util.Collections;
 
-public class SearchEngine {
+class SearchEngine {
     //instance objects
     private Map<String, Map<Integer,Integer>> ReverseIndex;
     private Map<Integer, Map<String,Integer>> ForwardIndex;
@@ -28,7 +25,7 @@ public class SearchEngine {
     private final double K1;
     private final double B;
 
-    public SearchEngine(SearchConfig config){
+    SearchEngine(SearchConfig config){
         ForwardIndex= new HashMap<>();
         ReverseIndex=new HashMap<>();
         this.searchCache =CacheFactory.create(config);
@@ -242,7 +239,7 @@ public class SearchEngine {
         }
 
     //getter functions:
-    public Map<String,Integer> getSubForwardIndex(int docId){
+    Map<String,Integer> getSubForwardIndex(int docId){
         return ForwardIndex.get(docId);
     }
     }

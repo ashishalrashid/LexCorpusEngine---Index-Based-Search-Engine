@@ -2,8 +2,6 @@ package LCE;
 
 import java.util.*;
 
-import LCE.util.TextProcessor;
-
 public class LCEngine {
 
     private final SearchEngine searchEngine;

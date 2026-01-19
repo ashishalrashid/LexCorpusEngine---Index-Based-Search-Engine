@@ -1,11 +1,11 @@
-package LCE.util;
+package LCE;
 import java.util.Arrays;
 import java.util.List;
 
-public class TextProcessor {
+class TextProcessor {
 
     //normalizer
-    public static  String normalizer(String text){
+    static  String normalizer(String text){
         text=text.toLowerCase();
         text = text.replaceAll("[^a-z0-9 ]", " ");
         text=text.replaceAll("\\s+"," ").trim();
@@ -14,7 +14,7 @@ public class TextProcessor {
 
 
     //tokenizer
-    public static List<String> tokenize(String text){
+    static List<String> tokenize(String text){
         return Arrays.asList(text.split(" "));
     }
 

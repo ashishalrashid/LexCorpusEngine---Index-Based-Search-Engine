@@ -1,5 +1,5 @@
 package LCE;
 
-public class ARC {
+class ARC {
     
 }

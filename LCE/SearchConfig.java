@@ -1,6 +1,6 @@
 package LCE;
 
-public final class SearchConfig {
+final class SearchConfig {
 
     private final CachePolicy cachePolicy;
     private final int cacheSize;
@@ -18,33 +18,33 @@ public final class SearchConfig {
 
     // getters
 
-    public CachePolicy getCachePolicy() {
+    CachePolicy getCachePolicy() {
         return cachePolicy;
     }
 
-    public int getCacheSize() {
+    int getCacheSize() {
         return cacheSize;
     }
 
-    public int getAutocompleteTopK() {
+    int getAutocompleteTopK() {
         return autocompleteTopK;
     }
 
-    public double getBm25K1() {
+    double getBm25K1() {
         return bm25K1;
     }
 
-    public double getBm25B() {
+    double getBm25B() {
         return bm25B;
     }
 
     // ---- Builder ----
 
-    public static Builder builder() {
+    static Builder builder() {
         return new Builder();
     }
 
-    public static final class Builder {
+    static final class Builder {
 
         private CachePolicy cachePolicy = CachePolicy.LRU; 
         private int cacheSize = 1000;
@@ -54,12 +54,12 @@ public final class SearchConfig {
 
         private Builder() {}
 
-        public Builder cachePolicy(CachePolicy policy) {
+        Builder cachePolicy(CachePolicy policy) {
             this.cachePolicy = policy;
             return this;
         }
 
-        public Builder cacheSize(int size) {
+        Builder cacheSize(int size) {
             if (size <= 0) {
                 throw new IllegalArgumentException("cacheSize must be > 0");
             }
@@ -67,7 +67,7 @@ public final class SearchConfig {
             return this;
         }
 
-        public Builder autocompleteTopK(int k) {
+        Builder autocompleteTopK(int k) {
             if (k <= 0) {
                 throw new IllegalArgumentException("autocompleteTopK must be > 0");
             }
@@ -75,7 +75,7 @@ public final class SearchConfig {
             return this;
         }
 
-        public Builder bm25K1(double k1) {
+        Builder bm25K1(double k1) {
             if (k1 <= 0) {
                 throw new IllegalArgumentException("bm25K1 must be > 0");
             }
@@ -83,7 +83,7 @@ public final class SearchConfig {
             return this;
         }
 
-        public Builder bm25B(double b) {
+        Builder bm25B(double b) {
             if (b < 0 || b > 1) {
                 throw new IllegalArgumentException("bm25B must be between 0 and 1");
             }
@@ -91,7 +91,7 @@ public final class SearchConfig {
             return this;
         }
 
-        public SearchConfig build() {
+        SearchConfig build() {
             if (cachePolicy == CachePolicy.NONE) {
                 this.cacheSize = 0; // ignored
             }
