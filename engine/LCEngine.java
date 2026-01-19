@@ -1,4 +1,4 @@
-package engine.Umbrella;
+package engine;
 
 import java.util.*;
 
@@ -7,21 +7,21 @@ import engine.search.SearchEngine;
 import engine.util.TextProcessor;
 import engine.config.SearchConfig;
 
-public class UmbrellaClass {
+public class LCEngine {
 
     private final SearchEngine searchEngine;
     private final AutocompleteEngine autocompleteEngine ;
     private final SearchConfig config;
 
     //constructor
-    public UmbrellaClass(SearchConfig config){
+    public LCEngine(SearchConfig config){
         this.config =config;
         this.searchEngine =new SearchEngine(config);
         this.autocompleteEngine  =new AutocompleteEngine(config);
 
     }
      
-    
+    //public APIs
     public void ingest(int docId, String text) {
 
         String normalized = TextProcessor.normalizer(text);

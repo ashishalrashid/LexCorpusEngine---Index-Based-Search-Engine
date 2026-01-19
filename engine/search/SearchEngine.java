@@ -38,7 +38,7 @@ public class SearchEngine {
     }
     
     //Ingester function - make a delete function as well(to delete ingestions)
-    public void ingest(int doc_id,String text){
+    void ingest(int doc_id,String text){
 
         String NormalText=TextProcessor.normalizer(text);
         List<String> tokens=TextProcessor.tokenize(NormalText);
@@ -67,11 +67,11 @@ public class SearchEngine {
     }
 
     //single token ingestion
-    public void beginDoc(int docId , int estimatedTokens){
+    void beginDoc(int docId , int estimatedTokens){
         ForwardIndex.putIfAbsent(docId,new HashMap<>(estimatedTokens*2));
     }
 
-    public void TokenIngest(int docId, String token){
+    void TokenIngest(int docId, String token){
 
         //forward Index
         Map<String, Integer> docMap =ForwardIndex.get(docId);
@@ -86,7 +86,7 @@ public class SearchEngine {
     }
 
     //deletion fucntion:
-    public void deleteDoc(int docId) {
+    void deleteDoc(int docId) {
     Map<String, Integer> singleDoc = ForwardIndex.get(docId);
    
     if (singleDoc == null) return;
@@ -117,7 +117,7 @@ public class SearchEngine {
     //public function needed , seach
     //seach-> get >normalize > tokenize > order > score >rank > return 
     
-    public List<Integer> search(String query, int k){
+    List<Integer> search(String query, int k){
         String NormalQuery=TextProcessor.normalizer(query);
         
         //lookup cache
@@ -145,7 +145,7 @@ public class SearchEngine {
     }
 
     //overload seach to have a default k value
-    public List<Integer> seach(String query){
+    List<Integer> seach(String query){
         return search(query,20);
     }
 

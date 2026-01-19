@@ -3,7 +3,7 @@ import java.util.*;
 
 import engine.config.SearchConfig;
 
-public class AutocompleteEngine {
+class AutocompleteEngine {
 
     private final int K;
 
@@ -14,12 +14,12 @@ public class AutocompleteEngine {
     private int TokensDeletedSinceRebuild=0;
     private static final int Rebuild_Threshold=50_000; 
 
-    public AutocompleteEngine(SearchConfig config){
+    AutocompleteEngine(SearchConfig config){
         this.K =config.getAutocompleteTopK();
 
     }
 
-    public void insert(String word) {
+    void insert(String word) {
 
         // update global frequency
         wordFreq.put(word, wordFreq.getOrDefault(word, 0) + 1);
@@ -34,7 +34,7 @@ public class AutocompleteEngine {
         node.isWord = true;
     }
 
-    public List<String> suggest(String prefix) {
+    List<String> suggest(String prefix) {
 
         TrieNode node = root;
 
@@ -46,7 +46,7 @@ public class AutocompleteEngine {
         return node.topK;
     }
 
-    public void decrementFreq(Map<String, Integer> docTokens) {
+    void decrementFreq(Map<String, Integer> docTokens) {
 
     if (docTokens == null) return;
 
@@ -68,13 +68,13 @@ public class AutocompleteEngine {
     }
 }
 
-    public void CheckAndRebuild(){
+    void CheckAndRebuild(){
         if (TokensDeletedSinceRebuild>=Rebuild_Threshold){
             rebuild();
         }
     }
 
-    public void rebuild(){
+    void rebuild(){
         TokensDeletedSinceRebuild=0;
 
         TrieNode newRoot =new  TrieNode(); 
