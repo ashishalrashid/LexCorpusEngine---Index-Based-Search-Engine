@@ -1,0 +1,14 @@
+src\main\java\LCE\TrieNode.class
+src\main\java\LCE\SearchConfig.class
+src\main\java\LCE\CacheFactory.class
+src\main\java\LCE\SearchEngine.class
+src\main\java\LCE\CachePolicy.class
+src\main\java\LCE\Cache.class
+src\main\java\LCE\AutocompleteEngine.class
+src\main\java\LCE\LCEngine.class
+src\main\java\LCE\CacheFactory$1.class
+src\main\java\LCE\NoOpCache.class
+src\main\java\LCE\TextProcessor.class
+src\main\java\LCE\SearchConfig$Builder.class
+src\main\java\LCE\ARC.class
+src\main\java\LCE\LRU.class
