@@ -1,12 +1,15 @@
 package LCE;
 
-final class SearchConfig {
+import java.nio.file.Path;
+
+public final class SearchConfig {
 
     private final CachePolicy cachePolicy;
     private final int cacheSize;
     private final int autocompleteTopK;
     private final double bm25K1;
     private final double bm25B;
+    private final Path defaultIndexPath;
 
     private SearchConfig(Builder builder) {
         this.cachePolicy = builder.cachePolicy;
@@ -14,6 +17,7 @@ final class SearchConfig {
         this.autocompleteTopK = builder.autocompleteTopK;
         this.bm25K1 = builder.bm25K1;
         this.bm25B = builder.bm25B;
+        this.defaultIndexPath = builder.defaultIndexPath;
     }
 
     public static SearchConfig defaultConfig() {
@@ -21,6 +25,10 @@ final class SearchConfig {
     }
 
     // getters
+
+    public Path getDefaultIndexPath() {
+        return defaultIndexPath;
+    }
 
     CachePolicy getCachePolicy() {
         return cachePolicy;
@@ -55,8 +63,14 @@ final class SearchConfig {
         private int autocompleteTopK = 5;
         private double bm25K1 = 1.5;
         private double bm25B = 0.75;
+        private Path defaultIndexPath = Path.of("data/lce_index.lce");
 
         private Builder() {}
+
+        public Builder defaultIndexPath(Path path) {
+            this.defaultIndexPath = path;
+            return this;
+        }
 
         public Builder cachePolicy(CachePolicy policy) {
             this.cachePolicy = policy;
@@ -97,7 +111,7 @@ final class SearchConfig {
 
         public  SearchConfig build() {
             if (cachePolicy == CachePolicy.NONE) {
-                this.cacheSize = 0; // ignored
+                this.cacheSize = 0; 
             }
             return new SearchConfig(this);
         }
