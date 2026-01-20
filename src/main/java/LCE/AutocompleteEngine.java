@@ -1,4 +1,4 @@
-package LCE;
+package src.main.java.LCE;
 import java.util.*;
 
 class AutocompleteEngine {
@@ -98,7 +98,7 @@ class AutocompleteEngine {
             insertWithFreq(token, freq);
         }
     }
-    
+
     /* ---------- helpers ---------- */
     
     //used at rebuildfrom

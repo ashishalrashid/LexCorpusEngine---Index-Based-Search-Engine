@@ -1,4 +1,4 @@
-package LCE;
+package src.main.java.LCE;
 
 import java.util.ArrayList;
 // import java.util.Collection;

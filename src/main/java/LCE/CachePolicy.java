@@ -1,4 +1,4 @@
-package LCE;
+package src.main.java.LCE;
 
 public enum CachePolicy {
     NONE,

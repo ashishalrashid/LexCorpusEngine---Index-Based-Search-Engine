@@ -1,5 +1,0 @@
-package LCE;
-
-class ARC {
-    
-}

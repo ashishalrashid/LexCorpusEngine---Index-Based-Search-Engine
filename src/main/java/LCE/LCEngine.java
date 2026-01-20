@@ -1,4 +1,4 @@
-package LCE;
+package src.main.java.LCE;
 
 import java.util.*;
 import java.io.*;
