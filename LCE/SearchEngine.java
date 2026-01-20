@@ -237,6 +237,36 @@ class SearchEngine {
     Map<String,Integer> getSubForwardIndex(int docId){
         return ForwardIndex.get(docId);
     }
+    Map<String, Map<Integer,Integer>> getReverseIndex(){
+        return ReverseIndex;
     }
+    
+    Map<Integer, Map<String,Integer>> getForwardIndex(){
+        return ForwardIndex;
+    }
+    
+    int getTotalTokens(){
+        return TotalTokens;
+    }
+
+    double getAvgDocLength(){
+        return AvgDocLength;
+    }
+
+    //setter funtions
+    void putForward(int docId, Map<String,Integer> map){
+        ForwardIndex.put(docId,map);
+    }
+    void putReverse(String token, Map<Integer,Integer> map){
+        ReverseIndex.put(token,map);
+    }
+    void setAvgDocLength(double num){
+        this.AvgDocLength=num;
+    }
+    void setTotalTokens(int num){
+        this.TotalTokens=num;
+    }
+
+}
 
 

@@ -16,6 +16,10 @@ final class SearchConfig {
         this.bm25B = builder.bm25B;
     }
 
+    public static SearchConfig defaultConfig() {
+        return new Builder().build();
+    }
+
     // getters
 
     CachePolicy getCachePolicy() {
@@ -40,11 +44,11 @@ final class SearchConfig {
 
     // ---- Builder ----
 
-    static Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
-    static final class Builder {
+    public static final class Builder {
 
         private CachePolicy cachePolicy = CachePolicy.LRU; 
         private int cacheSize = 1000;
@@ -54,12 +58,12 @@ final class SearchConfig {
 
         private Builder() {}
 
-        Builder cachePolicy(CachePolicy policy) {
+        public Builder cachePolicy(CachePolicy policy) {
             this.cachePolicy = policy;
             return this;
         }
 
-        Builder cacheSize(int size) {
+        public Builder cacheSize(int size) {
             if (size <= 0) {
                 throw new IllegalArgumentException("cacheSize must be > 0");
             }
@@ -67,7 +71,7 @@ final class SearchConfig {
             return this;
         }
 
-        Builder autocompleteTopK(int k) {
+        public Builder autocompleteTopK(int k) {
             if (k <= 0) {
                 throw new IllegalArgumentException("autocompleteTopK must be > 0");
             }
@@ -75,7 +79,7 @@ final class SearchConfig {
             return this;
         }
 
-        Builder bm25K1(double k1) {
+        public Builder bm25K1(double k1) {
             if (k1 <= 0) {
                 throw new IllegalArgumentException("bm25K1 must be > 0");
             }
@@ -83,7 +87,7 @@ final class SearchConfig {
             return this;
         }
 
-        Builder bm25B(double b) {
+        public Builder bm25B(double b) {
             if (b < 0 || b > 1) {
                 throw new IllegalArgumentException("bm25B must be between 0 and 1");
             }
@@ -91,7 +95,7 @@ final class SearchConfig {
             return this;
         }
 
-        SearchConfig build() {
+        public  SearchConfig build() {
             if (cachePolicy == CachePolicy.NONE) {
                 this.cacheSize = 0; // ignored
             }

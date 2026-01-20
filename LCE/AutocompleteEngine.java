@@ -88,8 +88,39 @@ class AutocompleteEngine {
         }
         this.root=newRoot;
     }
+    
+    void rebuildFrom(Map<String, Map<Integer,Integer>> ReverseIndex){
+
+        Resetvariables();
+        for (var e : ReverseIndex.entrySet()) {
+            String token = e.getKey();
+            int freq = e.getValue().values().stream().mapToInt(Integer::intValue).sum();
+            insertWithFreq(token, freq);
+        }
+    }
+    
     /* ---------- helpers ---------- */
     
+    //used at rebuildfrom
+    void insertWithFreq(String word,int freq){
+        wordFreq.put(word,freq);
+
+        TrieNode node =root;
+
+        for (char c:word.toCharArray()){
+            node =node.children.computeIfAbsent(c,K->new TrieNode());
+            updateTopK(node, word);
+        }
+        node.isWord=true;
+    }
+
+    //used at rebuildfrom
+    private void Resetvariables(){
+        this.root =new TrieNode();
+        this.wordFreq.clear();
+        this.TokensDeletedSinceRebuild=0;
+    }
+
     //used at insert
     private void updateTopK(TrieNode node, String word) { 
 
