@@ -1,16 +1,13 @@
 package LCE;
 
 import java.util.ArrayList;
-// import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-// import java.util.Iterator;
-// import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
-import java.util.Collections;
 
 class SearchEngine {
     //instance objects
@@ -34,7 +31,8 @@ class SearchEngine {
     }
     
     //Ingester function - make a delete function as well(to delete ingestions)
-    void ingest(int doc_id,String text){
+    @Deprecated
+    void ingest(int doc_id,String text){ 
 
         String NormalText=TextProcessor.normalizer(text);
         List<String> tokens=TextProcessor.tokenize(NormalText);

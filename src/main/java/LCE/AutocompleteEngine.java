@@ -1,5 +1,8 @@
 package LCE;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 class AutocompleteEngine {
 
@@ -155,7 +158,8 @@ class AutocompleteEngine {
     }
 
     private void insertIntoTrie(TrieNode root, String word, int freq) {
-
+    
+    wordFreq.put(word, freq);
     TrieNode node = root;
 
     for (char c : word.toCharArray()) {

@@ -1,11 +1,16 @@
 package LCE;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LCEngine {
 
@@ -68,7 +73,6 @@ public class LCEngine {
 
     public void rebuildAutocompleteTrie(){
         autocompleteEngine.rebuild();
-        return;
     }
 
         public void save(Path path) throws IOException {
