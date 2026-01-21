@@ -140,7 +140,7 @@ public class LCEngine {
             SearchEngine se = engine.searchEngine;
 
             // metadata
-            se.setTotalTokens(in.readInt());
+            se.setTotalTokens(in.readLong());
             se.setAvgDocLength(in.readDouble());
 
             // forward index

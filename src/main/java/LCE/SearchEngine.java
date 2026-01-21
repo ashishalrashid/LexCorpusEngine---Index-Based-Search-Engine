@@ -13,7 +13,7 @@ class SearchEngine {
     //instance objects
     private Map<String, Map<Integer,Integer>> ReverseIndex;
     private Map<Integer, Map<String,Integer>> ForwardIndex;
-    private int TotalTokens;
+    private long TotalTokens;
     private double AvgDocLength;
 
     private final Cache<String,List<Integer>> searchCache;
@@ -243,7 +243,7 @@ class SearchEngine {
         return ForwardIndex;
     }
     
-    int getTotalTokens(){
+    long getTotalTokens(){
         return TotalTokens;
     }
 
@@ -261,7 +261,7 @@ class SearchEngine {
     void setAvgDocLength(double num){
         this.AvgDocLength=num;
     }
-    void setTotalTokens(int num){
+    void setTotalTokens(long num){
         this.TotalTokens=num;
     }
 
