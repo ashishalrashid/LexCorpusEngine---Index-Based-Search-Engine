@@ -3,6 +3,9 @@ package LCE;
 import java.nio.file.Path;
 import java.util.List;
 
+//  This is a demo class to showcase the Public endpoints that are available in the LCEngine
+//this covers all the basic needs, for more detail coverage of all the endpoints refer the Readme.given
+
 public class demo {
 
     public static void main(String[] args) throws Exception {
