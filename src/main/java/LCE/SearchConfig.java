@@ -1,4 +1,4 @@
-package src.main.java.LCE;
+package LCE;
 
 import java.nio.file.Path;
 
