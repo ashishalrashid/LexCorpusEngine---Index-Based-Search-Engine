@@ -15,7 +15,7 @@ LexCorpusEngine is optimized for interactive, in-memory search workloads.
 Benchmark environment:
 - Dataset size: 50,000 documents
 - Execution model: single-threaded, in-memory
-- Hardware: typical consumer laptop
+- Hardware: ryzen 7 4800H , Consumer Laptop.
 
 Observed latencies:
 
