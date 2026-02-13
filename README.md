@@ -26,6 +26,31 @@ These measurements include query parsing, candidate retrieval, BM25 scoring, and
 
 Performance depends on dataset characteristics, token distribution, and hardware, but results demonstrate suitability for low-latency, embedded search use cases.
 
+---
+## Time Complexity Summary
+
+All complexities assume single-threaded, in-memory execution.
+
+- **Ingestion (per document):** `O(T)`
+- **Search (BM25):** `O(Σ df(t) · log K)`
+- **Autocomplete:** `O(P)`
+- **Deletion:** `O(T)`
+- **Persistence (save/load):** `O(N)`
+- **Cache lookup / update:** `O(1)`
+
+Where:
+
+- `T` = number of tokens in document  
+- `df(t)` = document frequency of token `t`  
+- `K` = Top-K result size (small constant)  
+- `P` = prefix length  
+- `N` = total indexed entries  
+
+**Notes:**
+
+- Scoring and Top-K selection are performed simultaneously.  
+- No full index scans occur during queries.  
+- HashMap operations assume average-case `O(1)`.
 
 
 ---
