@@ -36,9 +36,6 @@ class SearchEngine {
 
         String NormalText=TextProcessor.normalizer(text);
         List<String> tokens=TextProcessor.tokenize(NormalText);
-
-        TotalTokens+=tokens.size();
-        
         
         ForwardIndex.putIfAbsent(doc_id,new HashMap<>());
         Map<String,Integer> SubFMap=ForwardIndex.get(doc_id);
@@ -52,9 +49,9 @@ class SearchEngine {
             Map<Integer,Integer> SubRMap=ReverseIndex.get(token);
             SubRMap.put(doc_id,SubRMap.getOrDefault(doc_id,0)+1);
         }
-        //update internal variables -required for bm25
-        TotalTokens +=tokens.size();
-        AvgDocLength = TotalTokens / (double) ForwardIndex.size();
+        //update internal variables - required for bm25
+        TotalTokens += tokens.size();
+        AvgDocLength = ForwardIndex.isEmpty() ? 0.0 : TotalTokens / (double) ForwardIndex.size();
 
 
 
@@ -68,7 +65,11 @@ class SearchEngine {
     void TokenIngest(int docId, String token){
 
         //forward Index
-        Map<String, Integer> docMap =ForwardIndex.get(docId);
+        Map<String, Integer> docMap = ForwardIndex.get(docId);
+        if (docMap == null) {
+            ForwardIndex.putIfAbsent(docId, new HashMap<>());
+            docMap = ForwardIndex.get(docId);
+        }
         docMap.put(token, docMap.getOrDefault(token,0)+1);
 
         //reverse Index
@@ -76,7 +77,7 @@ class SearchEngine {
         tokenDocs.put(docId, tokenDocs.getOrDefault(docId,0)+1);
 
         TotalTokens++;
-        AvgDocLength=TotalTokens/(double) ForwardIndex.size();
+        AvgDocLength = ForwardIndex.isEmpty() ? 0.0 : TotalTokens / (double) ForwardIndex.size();
     }
 
     //deletion fucntion:
@@ -149,40 +150,45 @@ class SearchEngine {
             if (ReverseIndex.containsKey(token)){
                 Ordered.add(token);
             }
-        Ordered.sort(Comparator.comparing(t->ReverseIndex.get(t).size()));
-
-        
         }
+
+        Ordered.sort(Comparator.comparingInt(t -> ReverseIndex.getOrDefault(t, Collections.emptyMap()).size()));
+
         return Ordered;
     }
 
     //generate candidate list
     private Set<Integer> GetCandidates(List<String> OrderedQueryTokens){
-        Set<Integer> candiates=null;
+        Set<Integer> candidates = null;
 
         for (String Token: OrderedQueryTokens){
             Map<Integer,Integer> tokenDocs= ReverseIndex.get(Token);
-            
+
             if (tokenDocs==null){
                 return Set.of();
             }
-            if (candiates==null){
-                candiates=tokenDocs.keySet();
+
+            if (candidates==null){
+                candidates = new java.util.HashSet<>(tokenDocs.keySet());
             } else {
-                candiates.retainAll(tokenDocs.keySet());
+                candidates.retainAll(tokenDocs.keySet());
             }
 
-            if (candiates.isEmpty()){
+            if (candidates.isEmpty()){
                 break;
             }
-            }
-            return candiates ==null? Set.of() : candiates;
+        }
+
+        return candidates == null ? Set.of() : candidates;
         }
 
     //helper function to get doc length
     private int getDocLength(int docId) {
+    Map<String,Integer> doc = ForwardIndex.get(docId);
+    if (doc == null) return 0;
+
     int length = 0;
-    for (int freq : ForwardIndex.get(docId).values()) {
+    for (int freq : doc.values()) {
         length += freq;
     }
     return length;
@@ -193,7 +199,9 @@ class SearchEngine {
 
         PriorityQueue<Map.Entry<Integer,Double>> heap = new PriorityQueue<>(Comparator.comparingDouble(Map.Entry::getValue));
 
-        int N =ForwardIndex.size();
+        int N = ForwardIndex.size();
+
+        double avgLen = AvgDocLength == 0.0 ? 1.0 : AvgDocLength;
 
         for (int docId: Candidates){
             double score=0.0;
@@ -212,7 +220,7 @@ class SearchEngine {
 
                 double idf = Math.log((N - df + 0.5) / (df + 0.5) + 1);
 
-                double denom = tf + K1 * (1 - B + B * (docLen / AvgDocLength));
+                double denom = tf + K1 * (1 - B + B * (docLen / avgLen));
 
                 score += idf * (tf * (K1 + 1)) / denom;
             }
