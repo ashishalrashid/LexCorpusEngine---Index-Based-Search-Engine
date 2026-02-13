@@ -8,13 +8,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Coordinates -->
-    <groupId>io.github.rashidar</groupId>
+    <groupId>io.github.ashishalrashid</groupId>
     <artifactId>lexcorpus-engine</artifactId>
     <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>LexCorpusEngine</name>
-    <description>In-memory lexical search engine with BM25 and autocomplete</description>
+    <description>In-memory index-based lexical search engine with BM25 and autocomplete</description>
+    <url>https://github.com/ashishalrashid/LexCorpusEngine---Index-Based-Search-Engine</url>
 
     <!-- Java version -->
     <properties>
@@ -23,8 +24,100 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- License -->
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- Developer -->
+    <developers>
+        <developer>
+            <id>ashishalrashid</id>
+            <name>Ashish Al Rashid</name>
+            <url>https://github.com/ashishalrashid</url>
+        </developer>
+    </developers>
+
+    <!-- Source Control -->
+    <scm>
+        <connection>scm:git:git://github.com/ashishalrashid/LexCorpusEngine---Index-Based-Search-Engine.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:ashishalrashid/LexCorpusEngine---Index-Based-Search-Engine.git</developerConnection>
+        <url>https://github.com/ashishalrashid/LexCorpusEngine---Index-Based-Search-Engine</url>
+    </scm>
+
     <!-- Dependencies -->
     <dependencies>
     </dependencies>
+
+    <!-- Maven Central -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+
+            <!-- Attach Sources -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Attach Javadocs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <quiet>true</quiet>
+                </configuration>
+            </plugin>
+
+            <!-- GPG Signing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
